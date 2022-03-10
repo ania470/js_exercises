@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // zadanie 4
+            console.log("Zadanie 4");
+            console.log("----------------------------------");
+
+            function silnia(n) {
+                wynik = 1;
+                while (n > 0) {
+                    wynik = wynik * n;
+                    n--;
+                }
+                console.log(wynik);
+            }
+
+            silnia(29);
+
+            // zadanie 5
+            console.log("Zadanie 5");
+            console.log("----------------------------------");
+
+            const sumOfNumbers = (x, y) => {
+                let num = 0;
+                for (let i = x; i <= y; i++) {
+                    num = num + i;
+                }
+                console.log(num);
+            };
+            sumOfNumbers(1, 10);
+
+            // zadanie 6
+            console.log("Zadanie 6");
+            console.log("----------------------------------");
+
+            const evenNumber = (n) => {
+                let num = 0;
+                for (let i = 0; i <= n; i++) {
+                    if (i === 0) {
+                        console.log("to jest 0");
+                    } else if (i % 2 === 0) {
+                        console.log(i + " to jest liczba parzysta");
+                    } else {
+                        console.log(i + " to jest liczba nieparzysta");
+                    }
+                }
+            };
+            evenNumber(8);
+
+            // zadanie 7
+            console.log("Zadanie 7");
+            console.log("----------------------------------");
+
+            let starTwo = "*";
+
+            const stars2 = (n, starTwo) => {
+                for (let i = 0; i < n; i++) {
+                    starTwo = "";
+                    for (let j = 0; j < n; j++) {
+                        starTwo = starTwo + "*";
+                    }
+                    console.log(starTwo);
+                    console.log(" ");
+                }
+            };
+
+            stars2(5);
+
+            // zadanie 8
+            console.log("Zadanie 8");
+            console.log("----------------------------------");
+
+            let star = "";
+            const stars = (n) => {
+                for (let i = 1; i <= n; i++) {
+                    console.log((star += "*"));
+                }
+            };
+
+            stars(5);
+
+            // zadanie 9
+            console.log("Zadanie 9");
+            console.log("----------------------------------");
+
+            let starThree = "*";
+            const stars3 = (p, starThree) => {
+                for (let i = 1; i <= p; i++) {
+                    starThree = "";
+                    for (let j = 1; j <= p; j++) {
+                        if ((j + i) % 2 === 0) {
+                            starThree += " ";
+                        } else if ((j + i) % 2 !== 0) {
+                            starThree += "*";
+                        }
+                    }
+                    console.log(starThree);
+                }
+            };
+            stars3(5);
+
+            // zadanie 10
+            console.log("Zadanie 10");
+            console.log("----------------------------------");
+
+            const stars4 = (p, starFour) => {
+                for (let i = 1; i <= p; i++) {
+                    let starFour = "";
+                    for (let j = 1; j <= p; j++) {
+                        if (j <= i) {
+                            starFour += "*";
+                        } else if (j >= i) {
+                            starFour += j;
+                        }
+                    }
+                    console.log(starFour);
+                }
+                for (let i = p; i >= 1; i--) {
+                    let starFour2 = "";
+                    for (let j = 1; j <= p; j++) {
+                        if (j <= i) {
+                            starFour2 += "*";
+                        } else if (j >= i) {
+                            starFour2 += j;
+                        }
+                    }
+                    console.log(starFour2);
+                }
+            };
+            stars4(3);
+
+            // zadanie 12
+            console.log("Zadanie 12");
+            console.log("----------------------------------");
+
+            const FooBar = (n) => {
+                for (let i = 1; i <= n; i++) {
+                    if (i % 3 === 0) {
+                        console.log("Foo");
+                        if (i % 5 === 0) {
+                            console.log("Bar");
+                        }
+                    } else if (i % 5 === 0) {
+                        console.log("Bar");
+                    } else {
+                        console.log(i);
+                    }
+                }
+            };
+            FooBar(5);
+
+            // zadanie 13
+            console.log("Zadanie 13");
+            console.log("----------------------------------");
+
+            const Ptg = (a, n) => {
+                let pow = 1;
+                for (let i = 1; i <= n; i++) {
+                    pow *= a;
+                }
+                console.log(pow);
+            };
+            Ptg(10, 2);
+
+            // zadanie 14
+            console.log("Zadanie 14");
+            console.log("----------------------------------");
+
+            const text = (n) => {
+                for (let i = 0; i < n; i++) {
+                    console.log("Programowanie jest fajne");
+                    console.log("");
+                }
+            };
+            text(4);
+
+            // zadanie 15
+            console.log("Zadanie 15");
+            console.log("----------------------------------");
+
+            const maxNum = (a, b, c) => {
+                if (a > b && a > c) {
+                    console.log(a);
+                } else if (b > a && b > c) {
+                    console.log(b);
+                } else if (c > a && c > b) {
+                    console.log(c);
+                } else {
+                    console.log("Podaj prawidłowe liczby");
+                }
+            };
+            maxNum(1, 2, 6);
+
+            // zadanie dodatkowe
+            console.log("Zadanie dodatkowe");
+            console.log("----------------------------------");
+
+            const firstNumbers = (n) => {
+                if (n % n === 0) {
+                    if (
+                        n % 2 === 0 ||
+                        n % 3 === 0 ||
+                        n % 4 === 0 ||
+                        n % 5 === 0 ||
+                        n % 6 === 0 ||
+                        n % 7 === 0 ||
+                        n % 8 === 0 ||
+                        n % 9 === 0
+                    ) {
+                        console.log("to nie jest liczba pierwsza");
+                    } else {
+                        console.log("to jest liczba pierwsza");
+                    }
+                }
+            };
+            firstNumbers(2);
+        </script>
+    </body>
+</html>

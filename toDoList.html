@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>To Do List App</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <style>
+            .closeIcon {
+                display: flex;
+                justify-content: end;
+            }
+            .closeIcon i {
+                cursor: pointer;
+            }
+            .input-field input[type="text"]:focus + label.active {
+                color: #cddc39;
+            }
+            .input-field input[type="text"]:focus {
+                border-bottom: 1px solid #cddc39 !important;
+                box-shadow: 0 1px 0 0 #cddc39 !important;
+            }
+            [type="checkbox"]:checked + span:not(.lever):before {
+                border-right-color: #cddc39;
+                border-bottom-color: #cddc39;
+            }
+            input.valid[type="text"]:not(.browser-default) {
+                border-bottom-color: #bccb28;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="center-align">Lista zakupów</h1>
+            <div class="row valign-wrapper">
+                <div class="input-field col s6">
+                    <input id="product" type="text" class="validate" />
+                    <label for="product">Produkt</label>
+                </div>
+                <div class="col s6">
+                    <a
+                        class="waves-effect waves-light btn lime disabled"
+                        id="addTaskBtn"
+                        >dodaj</a
+                    >
+                </div>
+            </div>
+
+            <ul class="collection shoppingList"></ul>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            const shoppingList = document.querySelector(".shoppingList");
+            const newProduct = shoppingList.querySelector(".newProduct");
+            let task = "";
+
+            document
+                .getElementById("addTaskBtn")
+                .addEventListener("click", () => {
+                    const liElement = document.createElement("li");
+                    liElement.classList =
+                        "collection-item row valign-wrapper newProduct";
+                    task = document.querySelector("#product").value;
+                    const htmlStructure = `
+                    <div class="col s11">
+                        <label>
+                            <input type="checkbox" />
+                            <span>${task}</span>
+                        </label>
+                    </div>
+                    <div class="col s1 closeIcon">
+                        <i class="material-icons dp48">clear</i>
+                    </div>
+              `;
+                    liElement.innerHTML = htmlStructure;
+                    shoppingList.appendChild(liElement);
+
+                    document.querySelector("#product").value = "";
+                    switchDisableBtn();
+                    removeProduct(liElement.querySelector(".closeIcon i"));
+                    productDone(
+                        liElement.querySelector("input[type='checkbox']")
+                    );
+                });
+            const switchDisableBtn = () => {
+                if (!document.querySelector("#product").value) {
+                    document
+                        .getElementById("addTaskBtn")
+                        .classList.add("disabled");
+                } else {
+                    document
+                        .getElementById("addTaskBtn")
+                        .classList.remove("disabled");
+                }
+            };
+            document.querySelector("#product").addEventListener("keyup", () => {
+                switchDisableBtn();
+            });
+            const removeProduct = (x) => {
+                x.addEventListener("click", (ev) => {
+                    ev.target
+                        .closest(".shoppingList")
+                        .removeChild(ev.target.closest(".newProduct"));
+                });
+            };
+            const productDone = (x) => {
+                x.addEventListener("click", (ev) => {
+                    if (ev.target.checked) {
+                        ev.target.closest(".newProduct").style.backgroundColor =
+                            "#3f4446";
+                        ev.target
+                            .closest(".newProduct")
+                            .querySelector("span").style.textDecoration =
+                            "line-through";
+                    } else {
+                        ev.target.closest(".newProduct").style.backgroundColor =
+                            "initial";
+                        ev.target
+                            .closest(".newProduct")
+                            .querySelector("span").style.textDecoration =
+                            "none";
+                    }
+                });
+            };
+        </script>
+    </body>
+</html>

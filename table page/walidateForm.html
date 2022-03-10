@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Walidacja formularza</title>
+        <style>
+            .typeOfCard {
+                display: inline-block;
+                width: 174px;
+                height: 19px;
+                border: 1px solid black;
+                padding: 0 10px;
+                margin-right: 10px;
+                vertical-align: top;
+            }
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="">
+            <span class="typeOfCard"></span>
+            <input
+                type="number"
+                placeholder="Numer karty"
+                class="numberOfCard"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="10"
+            />
+
+            <input type="button" value="Wyślij" class="sendBtn" />
+        </form>
+        <script>
+            const typeOfCard = document.querySelector(".typeOfCard");
+            const numberOfCard = document.querySelector(".numberOfCard");
+
+            console.log(typeOfCard);
+            numberOfCard.addEventListener("keyup", (e) => {
+                let numbers = numberOfCard.value;
+                console.log(e.target.value[1]);
+                let values = numbers.split("");
+                if (values[0] == 3 && values[1] == 3 && values[2] == 3) {
+                    typeOfCard.innerText = "Visa";
+                } else if (values[0] == 8 && values[1] == 8 && values[2] == 8) {
+                    typeOfCard.innerText = "Master Card";
+                } else if (values[0] == 6 && values[1] == 6 && values[2] == 6) {
+                    typeOfCard.innerText = "Revolut";
+                } else {
+                    typeOfCard.innerText = "";
+                }
+            });
+        </script>
+    </body>
+</html>

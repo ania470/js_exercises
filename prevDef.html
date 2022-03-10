@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="" id="myForm">
+            <input type="text" name="firstName" id="firstName" />
+            <input type="submit" name="" id="" value="Wyślij" />
+        </form>
+        <script>
+            var form = document.querySelector("#myForm");
+            form.addEventListener(
+                "submit",
+                function (e) {
+                    console.log(e.target);
+                    return false;
+                },
+                false
+            );
+            form.querySelector("#firstName").addEventListener(
+                "keypress",
+                function (e) {
+                    console.log(e.target);
+                    if (e.key === "a") {
+                        e.preventDefault();
+                    }
+                }
+            );
+        </script>
+    </body>
+</html>

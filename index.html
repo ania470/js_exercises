@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <style>
+            body {
+                position: relative;
+            }
+            .clr {
+                font-weight: 700;
+                font-size: 50px;
+                text-transform: uppercase;
+                display: inline-block;
+            }
+            .green {
+                color: green;
+            }
+            .red {
+                color: red;
+                border-bottom: 10px solid red;
+            }
+            .black {
+                color: black;
+            }
+            .yellow {
+                color: darkgoldenrod;
+                border-bottom: 10px solid darkgoldenrod;
+            }
+            .blue {
+                color: blue;
+            }
+            .grey {
+                color: grey;
+                border-bottom: 10px solid grey;
+            }
+            .orange {
+                color: orange;
+            }
+            .brown {
+                color: brown;
+                border-bottom: 10px solid brown;
+            }
+            .backToTop {
+                position: fixed;
+                bottom: 70px;
+                right: 70px;
+                transition: opacity 0.5s ease-in-out;
+            }
+            .popupOverlay {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: rgb(245 245 245 / 91%);
+                width: 100%;
+                height: 0;
+                z-index: 10000;
+                display: flex;
+                opacity: 0;
+                justify-content: center;
+                align-items: center;
+                transition: opacity 0.5s ease-in-out;
+            }
+            .popupWindow {
+                width: 400px;
+                height: 300px;
+                background-color: black;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            .popupWindow h1 {
+                color: white;
+                margin-top: 0;
+            }
+            .popupWindow svg {
+                fill: white;
+                width: 20px;
+                height: auto;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                cursor: pointer;
+            }
+            .popupWindow button {
+                cursor: pointer;
+            }
+            .show {
+                height: 100%;
+                opacity: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <p class="clr green">zmieniający się kolor</p>
+
+            <p class="clr black">zmieniający się kolor</p>
+
+            <p class="clr blue">zmieniający się kolor</p>
+
+            <p class="clr orange">zmieniający się kolor</p>
+            <p class="clr green">zmieniający się kolor</p>
+
+            <p class="clr black">zmieniający się kolor</p>
+
+            <p class="clr blue">zmieniający się kolor</p>
+
+            <p class="clr orange">zmieniający się kolor</p>
+            <p class="clr green">zmieniający się kolor</p>
+
+            <p class="clr black">zmieniający się kolor</p>
+
+            <p class="clr blue">zmieniający się kolor</p>
+
+            <p class="clr orange">zmieniający się kolor</p>
+            <p class="clr green">zmieniający się kolor</p>
+
+            <p class="clr black">zmieniający się kolor</p>
+
+            <p class="clr blue">zmieniający się kolor</p>
+
+            <button class="backToTop">Powrót do góry</button>
+        </div>
+        <div class="popupOverlay">
+            <div class="popupWindow">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    height="512px"
+                    id="Layer_1"
+                    style="enable-background: new 0 0 512 512"
+                    version="1.1"
+                    viewBox="0 0 512 512"
+                    width="512px"
+                    xml:space="preserve"
+                >
+                    <path
+                        d="M443.6,387.1L312.4,255.4l131.5-130c5.4-5.4,5.4-14.2,0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4  L256,197.8L124.9,68.3c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4L68,105.9c-5.4,5.4-5.4,14.2,0,19.6l131.5,130L68.4,387.1  c-2.6,2.6-4.1,6.1-4.1,9.8c0,3.7,1.4,7.2,4.1,9.8l37.4,37.6c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1L256,313.1l130.7,131.1  c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1l37.4-37.6c2.6-2.6,4.1-6.1,4.1-9.8C447.7,393.2,446.2,389.7,443.6,387.1z"
+                    />
+                </svg>
+                <h1>To jest popup</h1>
+                <button id="closeBtn">Zamknij</button>
+            </div>
+        </div>
+
+        <script>
+            // Cookies
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+                let expires = "expires=" + d.toUTCString();
+                document.cookie =
+                    cname + "=" + cvalue + ";" + expires + ";path=/";
+                console.log(`${cname}=${cvalue};${expires};path=/`);
+                console.log(document.cookie);
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let ca = document.cookie.split(";");
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == " ") {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+            // Change colors
+
+            const changeColor = () => {
+                var array = document.getElementsByTagName("p");
+                var colours = ["red", "yellow", "grey", "brown"];
+
+                var num = 0;
+                var setin = setInterval(() => {
+                    var randomColor = Math.floor(
+                        Math.random() * 16777215
+                    ).toString(16);
+
+                    setTimeout(() => {
+                        array[num].style.color = "#" + randomColor;
+                        array[num].style.borderBottom =
+                            "solid 10px" + ("#" + randomColor);
+                    }, 100);
+
+                    num++;
+
+                    num == array.length ? clearInterval(setin) : null;
+                }, 1000);
+            };
+
+            // Scroll to top
+            var para = document.querySelector(".clr");
+            var para2 = $(".clr");
+            para2.css({ width: 400 });
+
+            var button = document.querySelector(".backToTop");
+            var bd = document.querySelector(".container");
+            button.style.opacity = 0;
+
+            button.addEventListener("click", function (e) {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+            });
+            var hideAndShow = () => {
+                var y = window.scrollY;
+                if (y > 100) {
+                    button.style.opacity = 1;
+                } else {
+                    button.style.opacity = 0;
+                }
+            };
+            window.addEventListener("scroll", hideAndShow);
+
+            // Popup
+            const popupEl = document.querySelector(".popupOverlay");
+            const popupCloseIcon = popupEl.querySelector("svg");
+            const popupCloseBtn = popupEl.querySelector("#closeBtn");
+            if (!!getCookie("popupDone") === false) {
+                setTimeout(() => {
+                    popupEl.classList.add("show");
+                    document.body.style.overflow = "hidden";
+                }, 2000);
+            } else {
+                changeColor();
+            }
+
+            [popupCloseIcon, popupCloseBtn, popupEl].forEach((e) => {
+                e.addEventListener("click", (ev) => {
+                    if (!ev.target.classList.contains("popupWindow")) {
+                        popupEl.style.display = "none";
+                        document.body.style.overflow = "auto";
+                        changeColor();
+                        setCookie("popupDone", true, 1);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

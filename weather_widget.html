@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Widget</title>
+        <style>
+            .icon {
+                background-image: url("https://as1.ftcdn.net/v2/jpg/02/29/51/64/1000_F_229516433_Mqq77pvin7UXZiFNtSXlywTrUUi16kYI.jpg");
+                width: 150px;
+                height: 150px;
+                display: block;
+            }
+            .sunny {
+                background-position: -80px -74px;
+            }
+            .snow {
+                background-position: -542px -546px;
+            }
+            .rain {
+                background-position: -542px -317px;
+            }
+            .night {
+                background-position: -309px -74px;
+            }
+            .smallIcon {
+                zoom: 0.3;
+            }
+            .weatherData,
+            .error {
+                display: none;
+            }
+            #weatherIcon {
+                width: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="button" value="PL" class="languageOption" />
+        <input type="button" value="EN" class="languageOption" />
+        <input type="button" value="DE" class="languageOption" />
+        <input type="text" id="city" />
+        <input type="button" value="Pogoda" id="weather" />
+        <input type="button" value="Zlokalizuj" id="localize" />
+        <div class="weatherData">
+            <p>
+                W mieście <span id="cityName"></span> jest
+                <span id="degrees"></span>C
+            </p>
+            <img src="" alt="" id="weatherIcon" />
+            <p id="description"></p>
+        </div>
+        <p class="error">Wystąpił błąd</p>
+        <script>
+            const config = {
+                defaultLang: "en",
+                defaultColorLangBtn: "lightPink",
+            };
+            const { defaultLang, defaultColorLangBtn } = config;
+            () => {
+                console.log("test");
+            };
+            const weatherBtn = document.querySelector("#weather");
+            let city = document.querySelector("#city");
+            let lang = defaultLang;
+
+            const BASE_URL = "https://api.openweathermap.org";
+            const API_KEY = "654e30152cf4fefc174d36f9ec8b074f";
+
+            const addTempToWidget = (data) => {
+                document.querySelector(".weatherData").style.display = "block";
+                document.getElementById("cityName").innerText =
+                    data.name || city.value;
+                document.getElementById("degrees").innerText =
+                    data.main.temp.toFixed(1);
+                city.value = "";
+                document.querySelector(".error").style.display = "none";
+                document.querySelector(
+                    "#weatherIcon"
+                ).src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+                document.querySelector("#description").innerText =
+                    data.weather[0].description;
+            };
+            weatherBtn.addEventListener("click", () => {
+                fetch(
+                    `${BASE_URL}/data/2.5/weather?q=${city.value}&lang=${lang}&appid=${API_KEY}&units=metric`
+                )
+                    .then((response) => response.json())
+                    .then((data) => {
+                        addTempToWidget(data);
+                        addNotificationToTitle(data);
+                    })
+                    .catch((e) => {
+                        document.querySelector(".weatherData").style.display =
+                            "none";
+                        document.querySelector(".error").style.display =
+                            "block";
+                        addNotificationToTitle(e);
+                    });
+            });
+
+            document.querySelector("#localize").onclick = () => {
+                let lat;
+                let long;
+                navigator.geolocation.getCurrentPosition((position) => {
+                    lat = position.coords.latitude;
+                    long = position.coords.longitude;
+
+                    fetch(
+                        `${BASE_URL}/data/2.5/weather?lat=${lat}&lon=${long}&lang=${lang}&appid=${API_KEY}&units=metric`
+                    )
+                        .then((response) => response.json())
+                        .then((data) => {
+                            addTempToWidget(data);
+                            addNotificationToTitle(data);
+                        });
+                });
+            };
+
+            const language = document.querySelectorAll(".languageOption");
+            language.forEach((i) => {
+                i.value.toLowerCase() === defaultLang
+                    ? (i.style.background = defaultColorLangBtn)
+                    : null;
+                i.addEventListener("click", (e) => {
+                    language.forEach((j) => {
+                        j.style.background = "";
+                    });
+
+                    lang = e.target.value.toLowerCase();
+                    e.target.style.background = defaultColorLangBtn;
+                });
+            });
+
+            let title = document.title;
+
+            const addNotificationToTitle = (data) => {
+                data instanceof Error
+                    ? (document.title = "(Błąd) " + title)
+                    : (document.title = title);
+            };
+        </script>
+    </body>
+</html>
