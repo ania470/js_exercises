@@ -160,8 +160,6 @@
                 let expires = "expires=" + d.toUTCString();
                 document.cookie =
                     cname + "=" + cvalue + ";" + expires + ";path=/";
-                console.log(`${cname}=${cvalue};${expires};path=/`);
-                console.log(document.cookie);
             }
 
             function getCookie(cname) {
