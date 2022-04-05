@@ -2,12 +2,6 @@ function Lottery(config) {
     var drawBtn = document.querySelector("#drawBtn");
     var counter = 0;
     var drawedNumbers = [];
-    // var config = {
-    //     min: 1,
-    //     max: 49,
-    //     amountNumbers: 6,
-    //     drawingSpeed: 500,
-    // };
 
     var addElToDom = (num) => {
         var p = document.createElement("p");
